@@ -58,27 +58,13 @@ const SidebarItem = ({ href, icon: Icon, name, isActive }: SidebarItemProps) => 
         )}
       />
 
-      {/* Active indicator */}
-      <div className="absolute -left-3 top-1/2 h-12 w-1.5 -translate-y-1/2 rounded-r-full">
-        <div className={cn(
-          "h-full w-full rounded-r-full bg-gradient-to-b from-primary via-secondary to-primary bg-[length:100%_200%] transition-all duration-500",
-          isActive 
-            ? "opacity-100 animate-gradient-y" 
-            : "opacity-0 group-hover:opacity-50"
-        )} />
-      </div>
-
-      {/* Icon with glow effect */}
+      {/* Icon without glow effect */}
       <div className="relative">
-        <div className={cn(
-          "absolute -inset-1 rounded-lg bg-gradient-to-r from-primary/40 to-secondary/40 opacity-0 blur transition-opacity duration-500",
-          isActive ? "opacity-100" : "group-hover:opacity-100"
-        )} />
         <Icon className={cn(
           "relative h-5 w-5 transition-all duration-500",
           isActive 
-            ? "text-primary drop-shadow-[0_0_8px_rgba(var(--primary),0.5)]" 
-            : "text-muted-foreground group-hover:text-foreground group-hover:drop-shadow-[0_0_6px_rgba(var(--primary),0.3)]"
+            ? "text-primary" 
+            : "text-muted-foreground group-hover:text-foreground"
         )} />
       </div>
 

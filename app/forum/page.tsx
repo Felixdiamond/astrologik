@@ -1,8 +1,10 @@
 import { Metadata } from "next"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { MessageSquare, TrendingUp, Clock, Users, Search, Plus, Filter } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Forum | Not the FNGs",
@@ -85,129 +87,232 @@ const recentTopics = [
     id: 1,
     title: "Best loadout for competitive play?",
     author: "ProGamer123",
+    avatar: "/avatars/user1.png",
     replies: 24,
     views: 156,
     lastReply: "2 hours ago",
     category: "Strategy & Tips",
+    isHot: true,
   },
   {
     id: 2,
     title: "Game crashing after latest update",
     author: "TechUser",
+    avatar: "/avatars/user2.png",
     replies: 15,
     views: 89,
     lastReply: "4 hours ago",
     category: "Technical Support",
+    isHot: false,
   },
   {
     id: 3,
     title: "Looking for squad members",
     author: "TeamPlayer",
+    avatar: "/avatars/user3.png",
     replies: 32,
     views: 245,
     lastReply: "1 hour ago",
     category: "General Discussion",
+    isHot: true,
   },
 ]
 
 export default function ForumPage() {
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="container mx-auto py-10 space-y-10 px-4 sm:px-6">
       {/* Header */}
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight animate-glow">Community Forum</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-gradient">Community Forum</h1>
         <p className="text-muted-foreground max-w-2xl">
-          Join discussions, share your experiences, and connect with fellow gamers.
+          Join discussions, share your experiences, and connect with fellow gamers in our vibrant community.
         </p>
       </div>
 
       {/* Search and Actions */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Input
-          placeholder="Search topics..."
-          className="sm:max-w-[300px]"
-        />
-        <Button className="animate-pulse-slow">New Topic</Button>
+      <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+        <div className="relative w-full sm:max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search topics..."
+            className="pl-10 bg-background/50 border-border/60 focus-visible:ring-primary/40"
+          />
+        </div>
+        <div className="flex gap-2 w-full sm:w-auto">
+          <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
+            <Filter className="h-4 w-4 mr-2" />
+            Filter
+          </Button>
+          <Button variant="premium" size="sm" className="flex-1 sm:flex-none">
+            <Plus className="h-4 w-4 mr-2" />
+            New Topic
+          </Button>
+        </div>
       </div>
 
-      {/* Categories */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold tracking-tight">Categories</h2>
-        <div className="grid gap-4">
-          {categories.map((category) => (
-            <Card key={category.id} className="hover-glow">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 text-primary">{category.icon}</div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <CardTitle>{category.name}</CardTitle>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span>{category.topics} topics</span>
-                        <span>•</span>
-                        <span>{category.posts} posts</span>
+      {/* Forum Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Main Content */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Categories */}
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold tracking-tight flex items-center">
+              <MessageSquare className="h-5 w-5 mr-2 text-primary" />
+              Categories
+            </h2>
+            <div className="grid gap-4">
+              {categories.map((category) => (
+                <Card key={category.id} className="overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-primary/10 hover:border-primary/20 group">
+                  <CardHeader className="p-5">
+                    <div className="flex items-start gap-4">
+                      <div className="mt-1 p-2 rounded-md bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                        {category.icon}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="group-hover:text-primary transition-colors">{category.name}</CardTitle>
+                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                            <span>{category.topics} topics</span>
+                            <span>•</span>
+                            <span>{category.posts} posts</span>
+                          </div>
+                        </div>
+                        <CardDescription className="mt-1">{category.description}</CardDescription>
                       </div>
                     </div>
-                    <CardDescription>{category.description}</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-      </div>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </div>
 
-      {/* Recent Topics */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold tracking-tight">Recent Topics</h2>
-          <Button variant="ghost">View All</Button>
-        </div>
-        <div className="grid gap-4">
-          {recentTopics.map((topic) => (
-            <Card key={topic.id} className="hover-glow">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
-                    <CardTitle className="text-xl">{topic.title}</CardTitle>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <span>by {topic.author}</span>
-                      <span>•</span>
-                      <Badge variant="secondary">{topic.category}</Badge>
+          {/* Recent Topics */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold tracking-tight flex items-center">
+                <Clock className="h-5 w-5 mr-2 text-primary" />
+                Recent Topics
+              </h2>
+              <Tabs defaultValue="recent" className="w-[300px]">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="recent">Recent</TabsTrigger>
+                  <TabsTrigger value="popular">Popular</TabsTrigger>
+                  <TabsTrigger value="unanswered">Unanswered</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+            <div className="grid gap-4">
+              {recentTopics.map((topic) => (
+                <Card key={topic.id} className="overflow-hidden transition-all duration-300 hover:shadow-md hover:shadow-primary/10 hover:border-primary/20">
+                  <CardHeader className="p-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          {topic.isHot && (
+                            <Badge variant="secondary" className="bg-accent/20 text-accent-foreground">
+                              <TrendingUp className="h-3 w-3 mr-1" /> Hot
+                            </Badge>
+                          )}
+                          <Badge variant="outline" className="bg-background/50">{topic.category}</Badge>
+                        </div>
+                        <CardTitle className="text-xl hover:text-primary transition-colors">{topic.title}</CardTitle>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <span>by {topic.author}</span>
+                          <span>•</span>
+                          <span>Last reply {topic.lastReply}</span>
+                        </div>
+                      </div>
+                      <div className="text-right text-sm text-muted-foreground space-y-1">
+                        <div className="flex items-center justify-end gap-1">
+                          <MessageSquare className="h-3 w-3" />
+                          <span>{topic.replies}</span>
+                        </div>
+                        <div className="flex items-center justify-end gap-1">
+                          <Users className="h-3 w-3" />
+                          <span>{topic.views}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-right text-sm text-muted-foreground">
-                    <div>{topic.replies} replies</div>
-                    <div>{topic.views} views</div>
-                    <div>Last reply {topic.lastReply}</div>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-          ))}
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+            <div className="flex justify-center mt-6">
+              <Button variant="outline">Load More Topics</Button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Community Stats */}
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card className="hover-glow">
-          <CardHeader>
-            <CardTitle className="text-center text-4xl font-bold text-primary">1,234</CardTitle>
-            <CardDescription className="text-center">Members</CardDescription>
-          </CardHeader>
-        </Card>
-        <Card className="hover-glow">
-          <CardHeader>
-            <CardTitle className="text-center text-4xl font-bold text-primary">479</CardTitle>
-            <CardDescription className="text-center">Topics</CardDescription>
-          </CardHeader>
-        </Card>
-        <Card className="hover-glow">
-          <CardHeader>
-            <CardTitle className="text-center text-4xl font-bold text-primary">2,867</CardTitle>
-            <CardDescription className="text-center">Posts</CardDescription>
-          </CardHeader>
-        </Card>
+        {/* Sidebar */}
+        <div className="space-y-6">
+          {/* Community Stats */}
+          <Card className="overflow-hidden">
+            <CardHeader className="bg-muted/30 pb-2">
+              <CardTitle className="text-lg flex items-center">
+                <Users className="h-4 w-4 mr-2 text-primary" />
+                Community Stats
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground">Members</span>
+                <span className="font-bold text-lg text-primary">1,234</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground">Topics</span>
+                <span className="font-bold text-lg text-primary">479</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground">Posts</span>
+                <span className="font-bold text-lg text-primary">2,867</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Top Contributors */}
+          <Card className="overflow-hidden">
+            <CardHeader className="bg-muted/30 pb-2">
+              <CardTitle className="text-lg">Top Contributors</CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-full bg-primary/20"></div>
+                  <span>ProGamer123</span>
+                </div>
+                <Badge variant="outline">156 posts</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-full bg-primary/20"></div>
+                  <span>TechUser</span>
+                </div>
+                <Badge variant="outline">124 posts</Badge>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-full bg-primary/20"></div>
+                  <span>TeamPlayer</span>
+                </div>
+                <Badge variant="outline">98 posts</Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Forum Rules */}
+          <Card className="overflow-hidden">
+            <CardHeader className="bg-muted/30 pb-2">
+              <CardTitle className="text-lg">Forum Rules</CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 text-sm space-y-2">
+              <p>• Be respectful to other members</p>
+              <p>• No spamming or self-promotion</p>
+              <p>• Keep discussions on-topic</p>
+              <p>• No offensive language or content</p>
+              <p>• Follow game-specific guidelines</p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )
