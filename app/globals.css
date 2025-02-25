@@ -2,20 +2,351 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Core colors - cyberpunk-inspired neon palette */
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    
+    /* Primary - electric purple */
+    --primary: 263 70% 50%;
+    --primary-foreground: 210 40% 98%;
+    
+    /* Secondary - cyber blue */
+    --secondary: 199 89% 48%;
+    --secondary-foreground: 210 40% 98%;
+    
+    /* Accent - neon pink */
+    --accent: 322 90% 55%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Muted tones */
+    --muted: 223 47% 11%;
+    --muted-foreground: 215 20% 65%;
+    
+    /* UI elements */
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 263 70% 50%;
+    
+    /* Card and popover styling */
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
+    
+    /* Destructive actions */
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    
+    /* Radius */
+    --radius: 1rem;
+
+    /* Gaming theme specific */
+    --neon-primary: 263 70% 50%;
+    --neon-secondary: 199 89% 48%;
+    --neon-accent: 322 90% 55%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  /* Improved scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-gradient-to-b from-primary/50 via-secondary/50 to-primary/50 hover:from-primary/70 hover:via-secondary/70 hover:to-primary/70 transition-colors;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-primary/30 text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Animated gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-[length:400%_400%] animate-gradient;
+    background-image: linear-gradient(
+      115deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--secondary)) 25%,
+      hsl(var(--accent)) 50%,
+      hsl(var(--secondary)) 75%,
+      hsl(var(--primary)) 100%
+    );
+  }
+
+  /* Glow effects */
+  .glow {
+    filter: drop-shadow(0 0 0.75rem hsl(var(--primary) / 0.5));
+  }
+
+  .glow-text {
+    text-shadow: 0 0 0.5rem hsl(var(--primary) / 0.5);
+  }
+
+  .glow-strong {
+    filter: drop-shadow(0 0 1rem hsl(var(--primary) / 0.7))
+           drop-shadow(0 0 2rem hsl(var(--secondary) / 0.4));
+  }
+
+  /* Glass card effect */
+  .glass {
+    @apply backdrop-blur-xl bg-white/10 border border-white/20;
+  }
+
+  /* Animated border */
+  .animate-border {
+    --border-size: 2px;
+    --border-angle: 0turn;
+    background-image: conic-gradient(
+      from var(--border-angle),
+      transparent 20%,
+      hsl(var(--primary)),
+      transparent 80%
+    );
+    background-size: calc(100% - (var(--border-size) * 2))
+      calc(100% - (var(--border-size) * 2));
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: bg-spin 3s linear infinite;
+  }
+
+  @keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+
+  /* Floating animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .animate-float-slower {
+    animation: float 10s ease-in-out infinite;
+  }
+
+  /* Border flow animation */
+  .animate-border-flow {
+    animation: border-flow 3s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  /* Gradient animations */
+  .animate-gradient {
+    animation: gradient 8s linear infinite;
+    background-size: 200% 200%;
+  }
+
+  .animate-gradient-y {
+    animation: gradient-y 3s ease infinite;
+  }
+
+  /* Shine effect */
+  .animate-shine {
+    animation: shine 4s ease-in-out infinite;
+  }
+
+  /* Pulse glow */
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Cyberpunk glitch effect */
+  .glitch {
+    position: relative;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .glitch::before {
+    left: -1px;
+    text-shadow: 1px 0 hsl(var(--secondary));
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+
+  .glitch::after {
+    left: 1px;
+    text-shadow: -1px 0 hsl(var(--accent));
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+  }
+}
+
+@keyframes border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient-y {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0.75rem hsl(var(--primary) / 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 2rem hsl(var(--primary) / 0.7))
+           drop-shadow(0 0 3rem hsl(var(--secondary) / 0.3));
+  }
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(20px, 9999px, 21px, 0);
+  }
+  10% {
+    clip: rect(42px, 9999px, 44px, 0);
+  }
+  20% {
+    clip: rect(61px, 9999px, 64px, 0);
+  }
+  30% {
+    clip: rect(27px, 9999px, 31px, 0);
+  }
+  40% {
+    clip: rect(86px, 9999px, 95px, 0);
+  }
+  50% {
+    clip: rect(5px, 9999px, 11px, 0);
+  }
+  60% {
+    clip: rect(34px, 9999px, 37px, 0);
+  }
+  70% {
+    clip: rect(72px, 9999px, 81px, 0);
+  }
+  80% {
+    clip: rect(15px, 9999px, 23px, 0);
+  }
+  90% {
+    clip: rect(66px, 9999px, 91px, 0);
+  }
+  100% {
+    clip: rect(48px, 9999px, 55px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(12px, 9999px, 15px, 0);
+  }
+  10% {
+    clip: rect(51px, 9999px, 62px, 0);
+  }
+  20% {
+    clip: rect(82px, 9999px, 95px, 0);
+  }
+  30% {
+    clip: rect(27px, 9999px, 42px, 0);
+  }
+  40% {
+    clip: rect(65px, 9999px, 85px, 0);
+  }
+  50% {
+    clip: rect(7px, 9999px, 22px, 0);
+  }
+  60% {
+    clip: rect(44px, 9999px, 55px, 0);
+  }
+  70% {
+    clip: rect(71px, 9999px, 88px, 0);
+  }
+  80% {
+    clip: rect(33px, 9999px, 44px, 0);
+  }
+  90% {
+    clip: rect(92px, 9999px, 99px, 0);
+  }
+  100% {
+    clip: rect(18px, 9999px, 33px, 0);
+  }
+}
+
+/* Mouse position for spotlight effect */
+:root {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
