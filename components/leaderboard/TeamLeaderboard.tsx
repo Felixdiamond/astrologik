@@ -17,8 +17,8 @@ interface TeamStats {
 const teams: TeamStats[] = [
   {
     rank: 1,
-    name: "Cyber Sentinels",
-    logo: "/team1.png",
+    name: "Not the FNGs",
+    logo: "/nottfngs.jpg",
     members: 6,
     wins: 89,
     winRate: 78.5,
@@ -28,7 +28,7 @@ const teams: TeamStats[] = [
   {
     rank: 2,
     name: "Neon Dragons",
-    logo: "/team2.png",
+    logo: "/neon.jpg",
     members: 5,
     wins: 76,
     winRate: 72.3,
@@ -38,7 +38,7 @@ const teams: TeamStats[] = [
   {
     rank: 3,
     name: "Quantum Raiders",
-    logo: "/team3.png",
+    logo: "/R.jpeg",
     members: 6,
     wins: 71,
     winRate: 68.9,

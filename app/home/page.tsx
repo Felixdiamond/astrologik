@@ -33,21 +33,21 @@ const featuredCompetition = {
 
 const topPlayers = [
   {
-    name: "NightHawk",
+    name: "Immaculate",
     rank: 1,
     score: 2500,
     winRate: "68%",
     avatar: "/players/player1.jpg",
   },
   {
-    name: "BlitzKing",
+    name: "25th(Excommunicada)",
     rank: 2,
     score: 2450,
     winRate: "65%",
     avatar: "/players/player2.jpg",
   },
   {
-    name: "Valkyrie",
+    name: "QuackFu",
     rank: 3,
     score: 2400,
     winRate: "63%",

@@ -17,7 +17,7 @@ interface PlayerStats {
 const players: PlayerStats[] = [
   {
     rank: 1,
-    name: "Immaculate Gay",
+    name: "Immaculate",
     avatar: "/avatar1.png",
     kills: 2547,
     wins: 142,
@@ -26,7 +26,7 @@ const players: PlayerStats[] = [
   },
   {
     rank: 2,
-    name: "ToxicKnight",
+    name: "25th(Excommunicada)",
     avatar: "/avatar2.png",
     kills: 2341,
     wins: 128,
@@ -35,12 +35,30 @@ const players: PlayerStats[] = [
   },
   {
     rank: 3,
-    name: "ShadowStrike",
+    name: "QuackFu",
     avatar: "/avatar3.png",
     kills: 2156,
     wins: 119,
     accuracy: 62.8,
     score: 108900,
+  },
+  {
+    rank: 4,
+    name: "Babygrill",
+    avatar: "/avatar4.png",
+    kills: 2100,
+    wins: 100,
+    accuracy: 60.5,
+    score: 108500,
+  },
+  {
+    rank: 5,
+    name: "Silky",
+    avatar: "/avatar5.png",
+    kills: 2000,
+    wins: 90,
+    accuracy: 55.8,
+    score: 107900,
   },
   // Add more players as needed
 ]

@@ -173,7 +173,7 @@ export default function Navbar() {
             )}
           >
             <div className="relative flex items-center">
-              <button 
+              <Button 
                 onClick={handleSearchClick}
                 className={cn(
                   "absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-full",
@@ -181,7 +181,7 @@ export default function Navbar() {
                 )}
               >
                 <Search className="h-4 w-4 text-muted-foreground" />
-              </button>
+              </Button>
               <Input
                 ref={inputRef}
                 className={cn(
@@ -196,12 +196,12 @@ export default function Navbar() {
                 onClick={handleSearchClick}
               />
               {searchOpen && searchQuery && (
-                <button 
+                <Button 
                   onClick={clearSearch}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                 >
                   <X className="h-4 w-4" />
-                </button>
+                </Button>
               )}
             </div>
             {searchOpen && searchQuery && (
@@ -290,7 +290,7 @@ export default function Navbar() {
                   </div>
                 </div>
             <span className="hidden text-sm font-medium md:inline-block">
-              Player123
+              immaculate
             </span>
                 <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
           </Button>
@@ -299,12 +299,12 @@ export default function Navbar() {
               <div className="bg-muted/50 p-4">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-10 w-10 border-2 border-background">
-                    <AvatarImage src="/avatar.png" alt="User" />
+                    <AvatarImage src="/imma.jpg" alt="User" />
                     <AvatarFallback className="bg-gradient-to-br from-primary/80 to-secondary/80 text-white">FNG</AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-medium">Player123</p>
-                    <p className="text-xs text-muted-foreground">player123@example.com</p>
+                    <p className="font-medium">immaculate</p>
+                    <p className="text-xs text-muted-foreground">wisdomrichard62@gmail.com</p>
                   </div>
                 </div>
                 <div className="mt-3 flex items-center gap-2">
